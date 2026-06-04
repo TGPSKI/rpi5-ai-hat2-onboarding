@@ -1,0 +1,25 @@
+[Unit]
+Description=Hailo OpenAI compatibility proxy
+After=network-online.target hailo-ollama-serve.service
+Wants=network-online.target hailo-ollama-serve.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/github/tgpski/rpi5-ai-hat2-onboarding/hailo-openai-proxy
+Environment=HAILO_BASE=http://127.0.0.1:8000
+Environment=HAILO_DEFAULT_MODEL=qwen3:1.7b
+Environment=HAILO_FLATTEN_MESSAGES=1
+Environment=HAILO_MAX_GENERATION_TOKENS=256
+Environment=PATH=%h/github/tgpski/rpi5-ai-hat2-onboarding/.venv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/env uvicorn proxy:app --host 127.0.0.1 --port 8080
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=60s
+TimeoutStopSec=20s
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=%h/github/tgpski/rpi5-ai-hat2-onboarding
+
+[Install]
+WantedBy=default.target
