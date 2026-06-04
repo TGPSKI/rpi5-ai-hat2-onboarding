@@ -3,7 +3,7 @@ Description=Hailo-Ollama inference server
 Documentation=https://github.com/hailo-ai/hailo_model_zoo_genai
 After=network-online.target
 Wants=network-online.target
-ConditionPathExists=/dev/hailo0
+ConditionPathExists=/dev/h1x-0
 
 [Service]
 Type=simple
