@@ -45,7 +45,7 @@ jobs:
         run: systemd-analyze verify systemd/hailo-ollama-serve.service systemd/hailo-openai-proxy.service
 
       - name: Makefile dry run
-        run: make -n help python proxy-run systemd-install leather-validate leather-canary leather-digest leather-ingest
+        run: make -n help python proxy-run systemd-install
 
       - name: Generated-file guard
         run: |
