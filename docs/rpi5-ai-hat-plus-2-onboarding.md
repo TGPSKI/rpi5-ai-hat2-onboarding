@@ -122,27 +122,29 @@ Then:
 sudo reboot
 ```
 
-## 5. Package choice: `hailo-all` vs `hailo-h10-all`
+## 5. Package choice: `hailo-all` vs `hailo-h10-all` vs 5.3.0 manual path
 
-This is the first major trap.
+There are three package paths. Choose one and do not mix them.
 
-For the older AI Kit / AI HAT+ path:
-
-```bash
-sudo apt install dkms
-sudo apt install hailo-all
-```
-
-For AI HAT+ 2 / Hailo-10H:
+**Older AI Kit / AI HAT+ (Hailo-8/8L):**
 
 ```bash
-sudo apt install dkms
-sudo apt install hailo-h10-all
+sudo apt install dkms hailo-all
 ```
 
-The two package families cannot coexist. For AI HAT+ 2, use `hailo-h10-all`.
+**AI HAT+ 2 / Hailo-10H, apt 5.1.x path:**
 
-Verify:
+```bash
+sudo apt install dkms hailo-h10-all
+```
+
+`hailo-h10-all` is a metapackage that pulls in the Hailo-10H driver and runtime stack. It is valid for getting started but is pinned to the 5.1.x release in the standard Raspberry Pi OS repos and does not include the latest models.
+
+**AI HAT+ 2 / Hailo-10H, manual 5.3.0 path (required for latest models):**
+
+`hailo-h10-all` is not available for 5.3.0 and is not required. The 5.3.0 manual path installs `hailort`, `hailort-pcie-driver`, and `hailo-gen-ai-model-zoo` directly from `.deb` files. See section 6 for the full procedure.
+
+Verify whichever path you used:
 
 ```bash
 hailortcli fw-control identify
@@ -157,13 +159,13 @@ Device Architecture: HAILO10H
 /dev/hailo0 exists
 ```
 
-## 6. 5.1.x apt path vs 5.3.0 manual path
+## 6. apt 5.1.x path vs 5.3.0 manual path
 
-Treat these as two different tracks.
+Treat these as two different tracks. The 5.3.0 manual path is required to run the latest models (qwen3, deepseek-r1, qwen2.5-coder, llama3.2).
 
-### Track A: stable apt path
+### Track A: apt 5.1.x path
 
-Start here unless you have a specific reason not to.
+Quick to install, but limited to older models available in the apt repos.
 
 ```bash
 sudo apt update
@@ -174,9 +176,11 @@ hailortcli fw-control identify
 
 ### Track B: 5.3.0 manual path
 
-Use this only after Track A is understood and verified.
+Use this for `hailort 5.3.0` with the full current model zoo. This is the recommended path for running Hailo-Ollama with current models.
 
-A 2026 Hailo community report described a `hailo-gen-ai-model-zoo_5.3.0_arm64.deb` dependency issue on Raspberry Pi 5 with Hailo-10H: the package required generic `hailort`, while Hailo-10H requires `h10-hailort`. The practical rule is: do not mix apt-installed 5.1.x H10 packages with only part of a manually downloaded 5.3.0 package set.
+`hailo-h10-all` is not part of this path and should not be installed alongside it.
+
+A 2026 Hailo community report described a `hailo-gen-ai-model-zoo_5.3.0_arm64.deb` dependency issue on Raspberry Pi 5 with Hailo-10H when mixing 5.1.x apt packages with a partial 5.3.0 set. The practical rule is: start from a clean state.
 
 References:
 
@@ -189,7 +193,7 @@ Clean-start inspection:
 dpkg -l | grep -Ei 'hailo|h10|tappas|rpi-camera-assets|hailort'
 ```
 
-If you are intentionally moving from apt 5.1.x to a manual 5.3.0 set, remove old Hailo packages carefully:
+If you have apt 5.1.x packages installed, remove them before proceeding:
 
 ```bash
 sudo apt remove --purge 'hailo*' 'h10-*' 'python3-h10-*' 'python3-hailo*'
@@ -197,7 +201,7 @@ sudo apt autoremove --purge
 sudo reboot
 ```
 
-Then download the complete matching Hailo-10H / arm64 5.3.0 package set from Hailo Developer Zone. Do not install only one `.deb` and assume the stack is coherent.
+Download the complete matching Hailo-10H / arm64 5.3.0 package set from Hailo Developer Zone. Do not install only one `.deb` and assume the stack is coherent.
 
 Install from a local directory:
 
@@ -395,6 +399,8 @@ larger run-duration for demos
 
 ## 12. Recommended onboarding sequence
 
+The sequence below uses the 5.3.0 manual path, which is required for the latest models. For the apt 5.1.x path, replace the package installation step with `sudo apt install dkms hailo-h10-all`.
+
 ```bash
 # OS and firmware
 sudo apt update
@@ -402,8 +408,12 @@ sudo apt full-upgrade -y
 sudo rpi-eeprom-update -a
 sudo reboot
 
-# H10 package path
-sudo apt install dkms hailo-h10-all
+# 5.3.0 manual path: install full matched .deb set from Hailo Developer Zone
+# (hailo-h10-all is not used on this path)
+mkdir -p ~/Downloads/hailo-5.3
+cd ~/Downloads/hailo-5.3
+# copy .deb files here, then:
+sudo apt install ./*.deb
 sudo reboot
 
 # Verify device
