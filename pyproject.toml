@@ -1,0 +1,14 @@
+[project]
+name = "rpi5-ai-hat2-onboarding"
+version = "0.1.0"
+description = "Raspberry Pi 5 AI HAT+ 2 onboarding, Hailo-Ollama proxy, and Leather integration helpers."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115",
+  "requests>=2.32",
+  "uvicorn[standard]>=0.34",
+]
+
+[tool.uv]
+package = false
