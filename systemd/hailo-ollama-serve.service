@@ -1,0 +1,26 @@
+[Unit]
+Description=Hailo-Ollama inference server
+Documentation=https://github.com/hailo-ai/hailo_model_zoo_genai
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/dev/hailo0
+
+[Service]
+Type=simple
+WorkingDirectory=%h
+Environment=OLLAMA_HOST=127.0.0.1:8000
+EnvironmentFile=-%h/.config/hailo-ollama.env
+ExecStart=/usr/bin/env hailo-ollama
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=120s
+TimeoutStopSec=30s
+KillSignal=SIGTERM
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=%h
+LimitNOFILE=65535
+
+[Install]
+WantedBy=default.target
