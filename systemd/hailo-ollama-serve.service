@@ -17,9 +17,6 @@ TimeoutStartSec=120s
 TimeoutStopSec=30s
 KillSignal=SIGTERM
 NoNewPrivileges=true
-PrivateTmp=true
-ProtectSystem=full
-ReadWritePaths=%h
 LimitNOFILE=65535
 
 [Install]
