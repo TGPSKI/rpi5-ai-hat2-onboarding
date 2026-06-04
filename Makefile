@@ -13,7 +13,7 @@ HAILO_PROXY_PORT ?= 8080
 
 .PHONY: help doctor validate validate-tools validate-packages validate-systemd connectors \
 	python proxy-run systemd-install systemd-enable systemd-disable systemd-status systemd-logs \
-	leather-validate leather-canary leather-digest leather-ingest leather-status clean
+	_check-leather-repo leather-validate leather-canary leather-digest leather-ingest leather-status clean
 
 help:
 	@echo "rpi5-ai-hat2-onboarding"
@@ -113,16 +113,19 @@ systemd-status:
 systemd-logs:
 	@journalctl --user -u hailo-ollama-serve.service -u hailo-openai-proxy.service -f
 
-leather-validate:
+_check-leather-repo:
+	@test -d "$(LEATHER_REPO)/examples" || { echo "error: leather examples not found at $(LEATHER_REPO)/examples"; echo "Set LEATHER_REPO= to the leather repo root or check out ../leather"; exit 1; }
+
+leather-validate: _check-leather-repo
 	@$(MAKE) -C "$(LEATHER_REPO)/examples" validate-13 validate-14 validate-15
 
-leather-canary:
+leather-canary: _check-leather-repo
 	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" 13
 
-leather-digest:
+leather-digest: _check-leather-repo
 	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" 14
 
-leather-ingest:
+leather-ingest: _check-leather-repo
 	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" 15
 
 leather-status: leather-ingest
