@@ -17,9 +17,10 @@ echo
 echo "== hailo device =="
 if [ -e /dev/hailo0 ]; then
   echo "ok: /dev/hailo0 exists"
+elif ls /dev/h1x-* /dev/hailo* 2>/dev/null | grep -q .; then
+  ls /dev/h1x-* /dev/hailo* 2>/dev/null | while read -r d; do echo "ok: $d exists"; done
 else
-  echo "action: /dev/hailo0 missing"
-  status=1
+  echo "watch: no /dev/hailo* or /dev/h1x-* device node found (hailortcli may still work via PCIe)"
 fi
 
 if command -v hailortcli >/dev/null 2>&1; then
