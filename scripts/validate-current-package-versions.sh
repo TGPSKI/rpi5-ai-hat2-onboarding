@@ -37,10 +37,19 @@ if command -v dpkg-query >/dev/null 2>&1; then
     'hailo*' 'h10-*' 'python3-h10-*' 'python3-hailo*' 'rpi-*' \
     | sort || true
 
+  # hailo-h10-all is the apt/5.1.x metapackage. The 5.3.0 manual .deb path
+  # installs hailort + hailort-pcie-driver + hailo-gen-ai-model-zoo directly
+  # and does not include hailo-h10-all. Both paths are valid.
   if dpkg-query -W hailo-h10-all >/dev/null 2>&1; then
-    echo "ok: hailo-h10-all installed"
+    echo "ok: hailo-h10-all installed (apt path)"
+  elif dpkg-query -W hailort >/dev/null 2>&1 && \
+       dpkg-query -W hailort-pcie-driver >/dev/null 2>&1 && \
+       dpkg-query -W hailo-gen-ai-model-zoo >/dev/null 2>&1; then
+    echo "ok: hailort + hailort-pcie-driver + hailo-gen-ai-model-zoo installed (manual 5.3.0 path)"
   else
-    echo "action: hailo-h10-all not installed"
+    echo "action: no valid Hailo package set found"
+    echo "  apt path:    sudo apt install dkms hailo-h10-all"
+    echo "  manual path: install full hailort 5.3.0 .deb set from Hailo Developer Zone"
     status=1
   fi
 else

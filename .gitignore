@@ -13,3 +13,4 @@ __pycache__/
 # Local operator overrides
 .env
 *.local
+.agentsignore/
