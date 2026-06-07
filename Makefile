@@ -38,10 +38,10 @@ help:
 	@echo "  systemd-logs       follow both service logs"
 	@echo ""
 	@echo "Leather handoff:"
-	@echo "  leather-validate   validate Leather examples 13, 14, and 15"
-	@echo "  leather-canary     run Leather example 13 against this proxy"
-	@echo "  leather-digest     run Leather example 14 against this proxy"
-	@echo "  leather-ingest     run Leather example 15 against this proxy"
+	@echo "  leather-validate   validate Leather RPi/Hailo examples rpi-01, rpi-02, and rpi-03"
+	@echo "  leather-canary     run Leather rpi-01 against this proxy"
+	@echo "  leather-digest     run Leather rpi-02 against this proxy"
+	@echo "  leather-ingest     run Leather rpi-03 against this proxy"
 	@echo ""
 	@echo "HAILO_BASE=$(HAILO_BASE)"
 	@echo "HAILO_PROXY=$(HAILO_PROXY)"
@@ -117,16 +117,16 @@ _check-leather-repo:
 	@test -d "$(LEATHER_REPO)/examples" || { echo "error: leather examples not found at $(LEATHER_REPO)/examples"; echo "Set LEATHER_REPO= to the leather repo root or check out ../leather"; exit 1; }
 
 leather-validate: _check-leather-repo
-	@$(MAKE) -C "$(LEATHER_REPO)/examples" validate-13 validate-14 validate-15
+	@$(MAKE) -C "$(LEATHER_REPO)/examples" validate-rpi-01 validate-rpi-02 validate-rpi-03
 
 leather-canary: _check-leather-repo
-	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" 13
+	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" rpi-01
 
 leather-digest: _check-leather-repo
-	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" 14
+	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" rpi-02
 
 leather-ingest: _check-leather-repo
-	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" 15
+	@$(MAKE) -C "$(LEATHER_REPO)/examples" LEATHER_RPI_LLM_ENDPOINT="$(HAILO_PROXY)" LEATHER_RPI_MODEL="$(HAILO_MODEL)" rpi-03
 
 leather-status: leather-ingest
 

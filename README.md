@@ -7,10 +7,12 @@ OpenAI-compatible proxy, and user systemd units.
 Leather itself owns the runnable agent examples:
 
 ```text
-../leather/examples/13-rpi-hailo-endpoint-canary/
-../leather/examples/14-rpi-hailo-local-status-digest/
-../leather/examples/15-rpi-hailo-local-status-ingest/
+../leather/examples/rpi-01-hailo-endpoint-canary/
+../leather/examples/rpi-02-hailo-local-status-digest/
+../leather/examples/rpi-03-hailo-local-status-ingest/
 ```
+
+Upstream index: <https://github.com/TGPSKI/leather/tree/main/examples#rpihailo-examples>
 
 ## Repo contents
 
@@ -75,7 +77,7 @@ make leather-canary
 - [`docs/rpi5-ai-hat-plus-2-onboarding.md`](docs/rpi5-ai-hat-plus-2-onboarding.md)
   covers hardware, OS, Hailo runtime packages, Hailo-Ollama, and endpoint setup.
 - [`docs/leather-hailo-integration.md`](docs/leather-hailo-integration.md)
-  covers the handoff from this repo into Leather examples 13, 14, and 15.
+  covers the handoff from this repo into Leather RPi/Hailo examples.
 - [`docs/lab-freeze-findings.md`](docs/lab-freeze-findings.md)
   summarizes the latest working RPi lab freeze without committing raw logs.
 
