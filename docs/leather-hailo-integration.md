@@ -4,6 +4,9 @@ This guide is intentionally separate from the primary Raspberry Pi 5 + AI HAT+ 2
 
 Primary guide: [`rpi5-ai-hat-plus-2-onboarding.md`](rpi5-ai-hat-plus-2-onboarding.md)
 
+Current Leather RPi/Hailo examples:
+<https://github.com/TGPSKI/leather/tree/main/examples#rpihailo-examples>
+
 ## 1. Working architecture
 
 ```text
@@ -48,7 +51,7 @@ hailo-openai-proxy/proxy.py
 Start Hailo-Ollama and the shim first, then run:
 
 ```bash
-cd leather/examples/13-rpi-hailo-endpoint-canary
+cd leather/examples/rpi-01-hailo-endpoint-canary
 
 ../../leather serve \
   --config config.yaml \
@@ -68,7 +71,7 @@ Alt subjects: Local agent; Markdown + YAML; OpenAI endpoint
 Summary: Leather agent runs locally with Markdown + YAML, tracking token budgets and integrating with local endpoint workflows.
 ```
 
-## 4. Example 13: RPi Hailo endpoint summarization canary
+## 4. rpi-01: RPi Hailo endpoint summarization canary
 
 Purpose:
 
@@ -91,11 +94,11 @@ use --max-jobs 1 for predictable demos
 Leather repo files:
 
 ```text
-../leather/examples/13-rpi-hailo-endpoint-canary/README.md
-../leather/examples/13-rpi-hailo-endpoint-canary/config.yaml
-../leather/examples/13-rpi-hailo-endpoint-canary/Makefile
-../leather/examples/13-rpi-hailo-endpoint-canary/agents/canary.agent.md
-../leather/examples/13-rpi-hailo-endpoint-canary/agents/canary.lifecycle.yaml
+../leather/examples/rpi-01-hailo-endpoint-canary/README.md
+../leather/examples/rpi-01-hailo-endpoint-canary/config.yaml
+../leather/examples/rpi-01-hailo-endpoint-canary/Makefile
+../leather/examples/rpi-01-hailo-endpoint-canary/agents/canary.agent.md
+../leather/examples/rpi-01-hailo-endpoint-canary/agents/canary.lifecycle.yaml
 ```
 
 ## 5. README chunk fan-out
@@ -120,13 +123,13 @@ remove task wrappers from the text being summarized
 ```
 
 The freeze used a section-aware lifecycle generator for this canary. Leather
-keeps the generated once-scheduled lifecycle content in example 13.
+keeps the generated once-scheduled lifecycle content in `rpi-01`.
 
 ```text
-../leather/examples/13-rpi-hailo-endpoint-canary/agents/canary.lifecycle.yaml
+../leather/examples/rpi-01-hailo-endpoint-canary/agents/canary.lifecycle.yaml
 ```
 
-## 6. Example 14: RPi Hailo local status digest
+## 6. rpi-02: RPi Hailo local status digest
 
 Purpose:
 
@@ -141,19 +144,19 @@ and let Leather run the digest agent.
 Leather repo files:
 
 ```text
-../leather/examples/14-rpi-hailo-local-status-digest/README.md
-../leather/examples/14-rpi-hailo-local-status-digest/config.yaml
-../leather/examples/14-rpi-hailo-local-status-digest/Makefile
-../leather/examples/14-rpi-hailo-local-status-digest/agents/local-status.agent.md
-../leather/examples/14-rpi-hailo-local-status-digest/scripts/collect-snapshot.sh
-../leather/examples/14-rpi-hailo-local-status-digest/scripts/build-facts.sh
-../leather/examples/14-rpi-hailo-local-status-digest/scripts/render-lifecycle.sh
+../leather/examples/rpi-02-hailo-local-status-digest/README.md
+../leather/examples/rpi-02-hailo-local-status-digest/config.yaml
+../leather/examples/rpi-02-hailo-local-status-digest/Makefile
+../leather/examples/rpi-02-hailo-local-status-digest/agents/local-status.agent.md
+../leather/examples/rpi-02-hailo-local-status-digest/scripts/collect-snapshot.sh
+../leather/examples/rpi-02-hailo-local-status-digest/scripts/build-facts.sh
+../leather/examples/rpi-02-hailo-local-status-digest/scripts/render-lifecycle.sh
 ```
 
 Run:
 
 ```bash
-cd ../leather/examples/14-rpi-hailo-local-status-digest
+cd ../leather/examples/rpi-02-hailo-local-status-digest
 make doctor
 make run
 ```
@@ -165,7 +168,7 @@ Generated files are intentionally ignored:
 agents/local-status.lifecycle.yaml
 ```
 
-## 7. Example 15: RPi Hailo local status ingest
+## 7. rpi-03: RPi Hailo local status ingest
 
 Purpose:
 
@@ -178,19 +181,19 @@ This is the real value path. The model is not the source of truth. The shell col
 Leather repo files:
 
 ```text
-../leather/examples/15-rpi-hailo-local-status-ingest/README.md
-../leather/examples/15-rpi-hailo-local-status-ingest/config.yaml
-../leather/examples/15-rpi-hailo-local-status-ingest/tannery.yaml
-../leather/examples/15-rpi-hailo-local-status-ingest/Makefile
-../leather/examples/15-rpi-hailo-local-status-ingest/agents/local-status.agent.md
-../leather/examples/15-rpi-hailo-local-status-ingest/curings/local-status-digest.curing.yaml
-../leather/examples/15-rpi-hailo-local-status-ingest/scripts/collect-status.sh
+../leather/examples/rpi-03-hailo-local-status-ingest/README.md
+../leather/examples/rpi-03-hailo-local-status-ingest/config.yaml
+../leather/examples/rpi-03-hailo-local-status-ingest/tannery.yaml
+../leather/examples/rpi-03-hailo-local-status-ingest/Makefile
+../leather/examples/rpi-03-hailo-local-status-ingest/agents/local-status.agent.md
+../leather/examples/rpi-03-hailo-local-status-ingest/curings/local-status-digest.curing.yaml
+../leather/examples/rpi-03-hailo-local-status-ingest/scripts/collect-status.sh
 ```
 
 Run:
 
 ```bash
-cd ../leather/examples/15-rpi-hailo-local-status-ingest
+cd ../leather/examples/rpi-03-hailo-local-status-ingest
 make doctor
 make run
 ```
