@@ -7,6 +7,14 @@ Versioning.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-07
+
+### Changed
+
+- Updated Leather RPi/Hailo handoff documentation and Makefile targets to use
+  the moved `rpi-01`, `rpi-02`, and `rpi-03` examples instead of the old
+  `13`, `14`, and `15` example references.
+
 ## [0.1.0] - 2026-06-03
 
 ### Added
