@@ -10,7 +10,7 @@ This repo owns:
 - Hailo-10H package validation
 - Hailo-Ollama and OpenAI proxy operation
 - user systemd units
-- handoff into Leather examples 13, 14, and 15
+- handoff into Leather RPi/Hailo examples
 
 Leather runtime code and Leather examples live in the adjacent Leather repo.
 
