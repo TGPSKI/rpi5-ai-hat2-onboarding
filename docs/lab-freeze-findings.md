@@ -9,7 +9,7 @@ Validated in the freeze:
 
 - Hailo-Ollama served on `127.0.0.1:8000`.
 - The OpenAI compatibility proxy served on `127.0.0.1:8080`.
-- Leather example 13 ran once-scheduled tiny endpoint summarization.
+- Leather RPi/Hailo canary ran once-scheduled tiny endpoint summarization.
 - README fanout produced 19 once-scheduled summarization jobs through
   `qwen3:1.7b`.
 - Direct local status digest worked by collecting shell facts, rendering a
